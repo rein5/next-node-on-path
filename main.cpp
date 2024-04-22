@@ -9,7 +9,7 @@ void stress_test()
 {
     srand(time(0));
     std::vector<int> seq;
-    int total_correct = 0, total = 0;
+    int totalCorrect = 0, total = 0;
     for (int l = 1; l <= MAX_TEST_SEQ_LENGTH; l++)
     {
         if (l % 10 == 0)
@@ -45,7 +45,7 @@ void stress_test()
                 for (int q = k + 1; q <= l; q++)
                     m = std::min(m, seq[q]);
 
-                int res = rmq.range_min(i, j);
+                int res = rmq.rangeMin(i, j);
                 if (m == res)
                 {
                     correct++;
@@ -69,10 +69,10 @@ void stress_test()
         }
 
         total += correct + wrong;
-        total_correct += correct;
+        totalCorrect += correct;
     }
 
-    std::cout << "\n\t******* TOTAL CORRECT: " << total_correct << "/" << total << std::endl;
+    std::cout << "\n\t******* TOTAL CORRECT: " << totalCorrect << "/" << total << std::endl;
 }
 
 int main()

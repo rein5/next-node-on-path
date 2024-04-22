@@ -3,44 +3,60 @@
 
 #include <vector>
 
+/**
+ * Class to perform Range Minimum Queries (RMQ) over a static sequence in O(1) time, after
+ * O(n) space and time preprocessing.
+ * The RMQ problem is solved by reduction to an LCA problem over a Cartesian Tree built from the sequence,
+ * which is again reduced to a simplified "+/-1 RMQ" problem over the depth Euler Tour of the tree.
+ */
 class RMQ
 {
 public:
+    /**
+     * Constructor. It preprocesses the input sequence to allow for fast RMQ queries.
+     * @param seq The input sequence over which RMQs will be performed.
+     */
     RMQ(const std::vector<int> &seq);
-    int range_min(int i, int j);
+
+    /**
+     * Finds the minimum value in the sequence over the range [i, j].
+     * @param i Range start index (inclusive).
+     * @param j Range end index (inclusive).
+     * @return Minimum value in the range [i, j].
+     */
+    int rangeMin(int i, int j);
 
 private:
-    // Input sequence
-    std::vector<int> seq;
+    std::vector<int> seq; // Input sequence over which RMQs are performed
 
-    // Tree
+    // Tree representation
     std::vector<int> parent;
-    std::vector<int> left_child;
-    std::vector<int> right_child;
+    std::vector<int> leftChild;
+    std::vector<int> rightChild;
     int root;
 
     // Euler Tour
-    std::vector<int> ET_seq; // sequence of indices over seq
-    std::vector<int> depth_ET_seq;
-    std::vector<int> first_occurrence;
+    std::vector<int> etSeq; // sequence of indices over seq
+    std::vector<int> depthEtSeq;
+    std::vector<int> firstOccurrence;
     std::vector<int> depth;
 
     // Block-level data
-    std::vector<int> prefix_min_idx;
-    std::vector<int> suffix_min_idx;
-    int block_size;
-    std::vector<int> block_min_idx;
-    std::vector<std::vector<int>> pow_2_windows;    // Sparse Table: pow_2_windows[i] contains mins for windows of size 2^(i+1)
-    std::vector<int> block_binary_string;           // maps from block index to the int-encoded block binary string
+    std::vector<int> prefixMinIndex;
+    std::vector<int> suffixMinIndex;
+    int blockSize;
+    std::vector<int> blockMinIndex;
+    std::vector<std::vector<int>> pow2Windows;      // Sparse Table: pow2Windows[i] contains mins for windows of size 2^(i+1)
+    std::vector<int> blockBinaryString;             // maps from block index to the int-encoded block binary string
     std::vector<std::vector<std::vector<int>>> MIN; // MIN[b][i][j]: index of min depth over the range i...j within block b
 
     void buildCartesianTree();
     void eulerTour();
     void dfs(int root, int parent, int d);
-    int min_by_depth(int i, int j);
+    int minByDepth(int i, int j);
     void preprocessForLCA();
-    int pow_2_RMQ(int k, int l);
-    int RMQ_within_block(int block, int i, int j);
+    int blockRangeRMQ(int k, int l);
+    int singleBlockRMQ(int block, int i, int j);
 };
 
 #endif // RMQ_HPP
