@@ -42,9 +42,9 @@ private:
     std::vector<int> depth;
 
     // Block-level data
+    int blockSize;
     std::vector<int> prefixMinIndex;
     std::vector<int> suffixMinIndex;
-    int blockSize;
     std::vector<int> blockMinIndex;
     std::vector<std::vector<int>> pow2Windows;      // Sparse Table: pow2Windows[i] contains mins for windows of size 2^(i+1)
     std::vector<int> blockBinaryString;             // maps from block index to the int-encoded block binary string

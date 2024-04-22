@@ -7,15 +7,24 @@
 
 RMQ::RMQ(const std::vector<int> &seq) : seq(seq)
 {
+    if (seq.empty()) {
+        throw std::invalid_argument("Input sequence cannot be empty.");
+    }
+
     if (seq.size() > 2)
     {
         buildCartesianTree();
         preprocessForLCA();
-    }
+    } // else, don't bother. RMQs of size <= 2 are an edge case we handle directly
 }
 
 int RMQ::rangeMin(int i, int j)
 {
+    if (i < 0 || j < 0 || i >= seq.size() || j >= seq.size()) 
+    {
+        throw std::out_of_range("Index out of bounds.");
+    }
+
     // edge case
     if (abs(i - j) < 2)
         return seq[i] < seq[j] ? seq[i] : seq[j];
@@ -30,7 +39,7 @@ int RMQ::rangeMin(int i, int j)
 
     int iBlock = i / blockSize, jBlock = j / blockSize;
 
-    int resIndex = 0;
+    int resIndex;
     if (iBlock != jBlock) // first case: i and j not in the same block
     {
         resIndex = minByDepth(suffixMinIndex[i], prefixMinIndex[j]);
