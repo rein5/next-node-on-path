@@ -28,8 +28,8 @@ public:
     int rangeMin(int i, int j);
 
 private:
-
     void buildCartesianTree();
+    
 };
 
 #endif // RMQ_HPP

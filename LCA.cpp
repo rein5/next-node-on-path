@@ -7,12 +7,10 @@
 
 LCA::LCA(const std::vector<int> &nodeVals,
          const std::vector<int> &parent,
-         const std::vector<int> &leftChild,
-         const std::vector<int> &rightChild,
+         const std::vector<std::deque<int>> &children,
          int root) : nodeVals(nodeVals),
                      parent(parent),
-                     leftChild(leftChild),
-                     rightChild(rightChild),
+                     children(children),
                      root(root)
 {
     preprocessForLCA();
@@ -77,7 +75,7 @@ int LCA::blockRangeRMQ(int k, int l)
 }
 
 void LCA::preprocessForLCA()
-{
+{    
     // Perform Euler Tour of the input tree
     eulerTour();
 
@@ -197,15 +195,9 @@ void LCA::dfs(int root, int parent, int d)
     etSeq.push_back(root);
     depth[root] = d;
 
-    if (leftChild[root] != -1)
+    for (int child : children[root]) // left to right
     {
-        dfs(leftChild[root], root, d + 1);
-        etSeq.push_back(root);
-    }
-
-    if (rightChild[root] != -1)
-    {
-        dfs(rightChild[root], root, d + 1);
+        dfs(child, root, d + 1);
         etSeq.push_back(root);
     }
 }

@@ -39,8 +39,7 @@ void RMQ::buildCartesianTree()
 {
     // Build Cartesian Tree from input sequence
     parent.assign(nodeVals.size(), -1);
-    leftChild.assign(nodeVals.size(), -1);
-    rightChild.assign(nodeVals.size(), -1);
+    children.assign(nodeVals.size(), {});
     std::stack<int> s;
     for (int i = 0; i < nodeVals.size(); i++)
     {
@@ -65,11 +64,11 @@ void RMQ::buildCartesianTree()
         }
         else if (parent[i] < i) // node i must be right child of its parent
         {
-            rightChild[parent[i]] = i;
+            children[parent[i]].push_back(i);
         }
         else // parent[i] > i   -> node i must be left child of its parent
         {
-            leftChild[parent[i]] = i;
+            children[parent[i]].push_front(i);
         }
     }
 }

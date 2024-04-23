@@ -2,6 +2,7 @@
 #define LCA_HPP
 
 #include <vector>
+#include <deque>
 
 /**
  * Class to perform Lower Common Ancestor (LCA) queries on a tree in O(1) time, after
@@ -18,8 +19,7 @@ public:
      */
     LCA(const std::vector<int>& nodeVals, 
         const std::vector<int>& parent, 
-        const std::vector<int>& leftChild, 
-        const std::vector<int>& rightChild, 
+        const std::vector<std::deque<int>>& children, 
         int root); 
 
     /**
@@ -39,8 +39,7 @@ protected:
     // Tree representation
     std::vector<int> nodeVals; 
     std::vector<int> parent;
-    std::vector<int> leftChild;
-    std::vector<int> rightChild;
+    std::vector<std::deque<int>> children;
     int root;
 
     void preprocessForLCA();
