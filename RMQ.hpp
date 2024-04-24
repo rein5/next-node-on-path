@@ -20,6 +20,11 @@ public:
     RMQ(const std::vector<int> &seq);
 
     /**
+     * Default empty constructor.
+    */
+    RMQ(){};
+
+    /**
      * Finds the minimum value in the sequence over the range [i, j].
      * @param i Range start index (inclusive).
      * @param j Range end index (inclusive).

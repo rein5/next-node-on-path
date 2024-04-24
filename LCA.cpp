@@ -47,7 +47,7 @@ int LCA::lca(int i, int j)
         resIndex = singleBlockRMQ(iBlock, i % blockSize, j % blockSize);
     }
 
-    return nodeVals[etSeq[resIndex]];
+    return etSeq[resIndex];
 }
 
 int LCA::singleBlockRMQ(int block, int i, int j)

@@ -15,7 +15,7 @@ class LCA
 public:
     /**
      * Constructor. It takes arrays for node values, parent and child links, 
-     * as well as the index of the root within nodeVals.
+     * as well as the index of the root in nodeVals.
      */
     LCA(const std::vector<int>& nodeVals, 
         const std::vector<int>& parent, 
@@ -29,9 +29,9 @@ public:
 
     /**
      * Finds the LCA between nodes i and j.
-     * @param i index of first node within nodeVals
-     * @param j index of second node within nodeVals
-     * @return LCA(i, j)
+     * @param i index of first node in nodeVals
+     * @param j index of second node in nodeVals
+     * @return LCA(i, j) (index in nodeVals)
      */
     int lca(int i, int j);
 

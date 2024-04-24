@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11
 TARGET = main
-SRCS = main.cpp RMQ.cpp LCA.cpp
+SRCS = main.cpp RMQ.cpp LCA.cpp NextNodeOnPath.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all: $(TARGET)

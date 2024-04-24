@@ -32,7 +32,7 @@ int RMQ::rangeMin(int i, int j)
         return nodeVals[i] < nodeVals[j] ? nodeVals[i] : nodeVals[j];
 
     // compute and return the LCA between i and j within the Cartesian Tree
-    return lca(i, j);
+    return nodeVals[lca(i, j)];
 }
 
 void RMQ::buildCartesianTree()
