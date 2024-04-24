@@ -60,7 +60,7 @@ private:
     std::vector<std::vector<std::vector<int>>> MIN; // MIN[b][i][j]: index of min depth over the range i...j within block b
 
     void eulerTour();
-    void dfs(int root, int parent, int d);
+    void dfs(int root, int d);
     int minByDepth(int i, int j);
     int blockRangeRMQ(int k, int l);
     int singleBlockRMQ(int block, int i, int j);

@@ -184,7 +184,7 @@ int LCA::minByDepth(int i, int j)
     return depthEtSeq[i] < depthEtSeq[j] ? i : j;
 }
 
-void LCA::dfs(int root, int parent, int d)
+void LCA::dfs(int root, int d)
 {
     firstOccurrence[root] = etSeq.size();
     etSeq.push_back(root);
@@ -192,7 +192,7 @@ void LCA::dfs(int root, int parent, int d)
 
     for (int child : children[root]) // left to right
     {
-        dfs(child, root, d + 1);
+        dfs(child, d + 1);
         etSeq.push_back(root);
     }
 }
@@ -203,7 +203,7 @@ void LCA::eulerTour()
     firstOccurrence.assign(nodeVals.size(), -1);
     etSeq.clear();
 
-    dfs(root, -1, 0);
+    dfs(root, 0);
 
     depthEtSeq.resize(etSeq.size());
 
