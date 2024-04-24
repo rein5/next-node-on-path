@@ -1,13 +1,8 @@
 #include "LCA.hpp"
 
-#include <iostream>
-#include <cmath>
-#include <stack>
-#include <cstdlib>
-
 LCA::LCA(const std::vector<int> &nodeVals,
          const std::vector<int> &parent,
-         const std::vector<std::deque<int>> &children,
+         const std::vector<std::vector<int>> &children,
          int root) : nodeVals(nodeVals),
                      parent(parent),
                      children(children),
@@ -75,7 +70,7 @@ int LCA::blockRangeRMQ(int k, int l)
 }
 
 void LCA::preprocessForLCA()
-{    
+{
     // Perform Euler Tour of the input tree
     eulerTour();
 
@@ -217,4 +212,3 @@ void LCA::eulerTour()
         depthEtSeq[i] = depth[etSeq[i]];
     }
 }
-

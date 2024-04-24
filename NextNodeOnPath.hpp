@@ -2,22 +2,20 @@
 #define NEXTNODEONPATH_HPP
 
 #include <vector>
-#include <deque>
 #include "RMQ.hpp"
 #include "LCA.hpp"
-
 
 class NextNodeOnPath
 {
 public:
     /**
-     * Constructor. It takes arrays for node values, parent and child links, 
+     * Constructor. It takes arrays for node values, parent and child links,
      * as well as the index of the root in nodeVals.
      */
-    NextNodeOnPath(const std::vector<int>& nodeVals, 
-        const std::vector<int>& parent, 
-        const std::vector<std::deque<int>>& children, 
-        int root); 
+    NextNodeOnPath(const std::vector<int> &nodeVals,
+                   const std::vector<int> &parent,
+                   const std::vector<std::vector<int>> &children,
+                   int root);
 
     /**
      * Finds the next node on the unique path between nodes i and j.
@@ -27,11 +25,11 @@ public:
      */
     int query(int i, int j);
 
-private: 
+private:
     // Tree representation
-    std::vector<int> nodeVals; 
+    std::vector<int> nodeVals;
     std::vector<int> parent;
-    std::vector<std::deque<int>> children;
+    std::vector<std::vector<int>> children;
     int root;
 
     // Traversals data

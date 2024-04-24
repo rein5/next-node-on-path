@@ -2,30 +2,29 @@
 #define LCA_HPP
 
 #include <vector>
-#include <deque>
 
 /**
  * Class to perform Lower Common Ancestor (LCA) queries on a tree in O(1) time, after
  * O(n) space and time preprocessing.
- * The LCA problem is solved by reduction to a simplified "+/-1 RMQ" problem 
+ * The LCA problem is solved by reduction to a simplified "+/-1 RMQ" problem
  * over the depth Euler Tour of the tree.
  */
 class LCA
 {
 public:
     /**
-     * Constructor. It takes arrays for node values, parent and child links, 
+     * Constructor. It takes arrays for node values, parent and child links,
      * as well as the index of the root in nodeVals.
      */
-    LCA(const std::vector<int>& nodeVals, 
-        const std::vector<int>& parent, 
-        const std::vector<std::deque<int>>& children, 
-        int root); 
+    LCA(const std::vector<int> &nodeVals,
+        const std::vector<int> &parent,
+        const std::vector<std::vector<int>> &children,
+        int root);
 
     /**
      * Default empty constructor.
      */
-    LCA(){} 
+    LCA() {}
 
     /**
      * Finds the LCA between nodes i and j.
@@ -35,11 +34,11 @@ public:
      */
     int lca(int i, int j);
 
-protected: 
+protected:
     // Tree representation
-    std::vector<int> nodeVals; 
+    std::vector<int> nodeVals;
     std::vector<int> parent;
-    std::vector<std::deque<int>> children;
+    std::vector<std::vector<int>> children;
     int root;
 
     void preprocessForLCA();

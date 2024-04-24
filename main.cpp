@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
 #include "RMQ.hpp"
 #include "LCA.hpp"
 #include "NextNodeOnPath.hpp"
@@ -77,12 +76,11 @@ void rmq_stress_test()
     std::cout << "\n\t******* TOTAL CORRECT: " << totalCorrect << "/" << total << std::endl;
 }
 
-
 int main()
 {
     std::vector<int> nodeVals = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-    std::vector<int> parent =  {-1, 0, 1, 1, 0, 4, 4, 4, 5, 5, 6, 7, 7, 0, 13};
-    std::vector<std::deque<int>> children = {{1, 4, 13}, {2, 3}, {}, {}, {5, 6, 7}, {8, 9}, {10}, {11, 12}, {}, {}, {}, {}, {}, {14}, {}};
+    std::vector<int> parent = {-1, 0, 1, 1, 0, 4, 4, 4, 5, 5, 6, 7, 7, 0, 13};
+    std::vector<std::vector<int>> children = {{1, 4, 13}, {2, 3}, {}, {}, {5, 6, 7}, {8, 9}, {10}, {11, 12}, {}, {}, {}, {}, {}, {14}, {}};
     int root = 0;
 
     NextNodeOnPath nextNodeOnPath(nodeVals, parent, children, root);
@@ -91,8 +89,7 @@ int main()
     int nextNode = nextNodeOnPath.query(x, y);
 
     std::cout << "next node on the path from " << nodeVals[x] << " to " << nodeVals[y] << ": "
-        << nodeVals[nextNode] << std::endl;
-
+              << nodeVals[nextNode] << std::endl;
 
     rmq_stress_test();
 }

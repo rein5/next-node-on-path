@@ -1,9 +1,8 @@
 #include "NextNodeOnPath.hpp"
-#include <iostream>
 
 NextNodeOnPath::NextNodeOnPath(const std::vector<int> &nodeVals,
                                const std::vector<int> &parent,
-                               const std::vector<std::deque<int>> &children,
+                               const std::vector<std::vector<int>> &children,
                                int root) : nodeVals(nodeVals),
                                            parent(parent),
                                            children(children),

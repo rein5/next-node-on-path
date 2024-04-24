@@ -21,7 +21,7 @@ public:
 
     /**
      * Default empty constructor.
-    */
+     */
     RMQ(){};
 
     /**
@@ -34,7 +34,6 @@ public:
 
 private:
     void buildCartesianTree();
-    
 };
 
 #endif // RMQ_HPP

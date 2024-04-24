@@ -1,13 +1,10 @@
 #include "RMQ.hpp"
-
-#include <iostream>
-#include <cmath>
 #include <stack>
-#include <cstdlib>
 
 RMQ::RMQ(const std::vector<int> &seq) : LCA()
 {
-    if (seq.empty()) {
+    if (seq.empty())
+    {
         throw std::invalid_argument("Input sequence cannot be empty.");
     }
 
@@ -22,7 +19,7 @@ RMQ::RMQ(const std::vector<int> &seq) : LCA()
 
 int RMQ::rangeMin(int i, int j)
 {
-    if (i < 0 || j < 0 || i >= nodeVals.size() || j >= nodeVals.size()) 
+    if (i < 0 || j < 0 || i >= nodeVals.size() || j >= nodeVals.size())
     {
         throw std::out_of_range("Index out of bounds.");
     }
@@ -64,12 +61,11 @@ void RMQ::buildCartesianTree()
         }
         else if (parent[i] < i) // node i must be right child of its parent
         {
-            children[parent[i]].push_back(i);
+            children[parent[i]].push_back(i); // insert as last child
         }
         else // parent[i] > i   -> node i must be left child of its parent
         {
-            children[parent[i]].push_front(i);
+            children[parent[i]].insert(children[parent[i]].begin(), i); // insert as first child
         }
     }
 }
-
