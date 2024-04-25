@@ -79,7 +79,7 @@ void LCA::preprocessForLCA()
     // Build vectors prefixMinIndex, suffixMinIndex and blockMinIndex
     prefixMinIndex.resize(depthEtSeq.size());
     suffixMinIndex.resize(depthEtSeq.size());
-    blockMinIndex.resize(depthEtSeq.size() / blockSize); // uneven tail elems are discarded
+    blockMinIndex.resize(depthEtSeq.size() / blockSize); 
 
     int pMinIndex = 0, sMinIndex = depthEtSeq.size() - 1;
     prefixMinIndex[0] = pMinIndex;

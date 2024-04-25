@@ -9,6 +9,11 @@ void testRMQ();
 
 // NextNodeOnPath Test
 void testNextNodeOnPath();
-void dfsNextNodeOnPathSamples(int root, std::vector<int> &parent, std::vector<std::vector<int>> &children, std::list<int> &path, std::vector<bool> &visited, std::vector<std::vector<int>> &testSamples);
+void dfsNextNodeOnPathSamples(int root,
+                              std::vector<int> &parent,
+                              std::vector<std::vector<int>> &children,
+                              std::list<int> &path,
+                              std::vector<bool> &visited,
+                              std::vector<std::vector<int>> &testSamples);
 
 #endif // TESTUTILS_HPP

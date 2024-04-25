@@ -25,8 +25,10 @@ void testRMQ()
             seq[i] = std::rand() % 201 - 100; // random int in [-100, 100] range
         }
 
+        // preprocess sequence for RMQ queries
         RMQ rmq(seq);
 
+        // test RMQ queries on current sequence
         int correct = 0, wrong = 0;
         for (int i = 0; i < seq.size(); i++)
         {
@@ -68,7 +70,14 @@ void testRMQ()
     std::cout << "\n\t******* Total correct queries: " << totalCorrect << "/" << total << "\n\n";
 }
 
-void dfsNextNodeOnPathSamples(int root, std::vector<int> &parent, std::vector<std::vector<int>> &children, std::list<int> &path, std::vector<bool> &visited, std::vector<std::vector<int>> &testSamples)
+// Generates next-node-on-path test samples for the given tree using Depth First Search 
+// samples correspond to paths from a fixed source node to any other node
+void dfsNextNodeOnPathSamples(int root,
+                              std::vector<int> &parent,
+                              std::vector<std::vector<int>> &children,
+                              std::list<int> &path,
+                              std::vector<bool> &visited,
+                              std::vector<std::vector<int>> &testSamples)
 {
     path.push_back(root);
     visited[root] = true;
@@ -79,6 +88,7 @@ void dfsNextNodeOnPathSamples(int root, std::vector<int> &parent, std::vector<st
         testSamples.push_back({path.front(), *std::next(path.begin()), path.back()}); // (source, next, destination)
     }
 
+    // dfs into children and parent
     for (int child : children[root])
     {
         if (!visited[child])
@@ -123,8 +133,6 @@ void testNextNodeOnPath()
             children[randomParent].push_back(i); // add i to randomParent's children
         }
 
-        int correct = 0, wrong = 0;
-
         // generate test samples for current tree with Depth First Search
         std::vector<std::vector<int>> testSamples; // contains tuples (source, next, destination)
         for (int node = 0; node < nodeVals.size(); node++)
@@ -138,6 +146,7 @@ void testNextNodeOnPath()
         NextNodeOnPath nextNodeOnPath(nodeVals, parent, children, root);
 
         // test queries
+        int correct = 0, wrong = 0;
         for (std::vector<int> &sample : testSamples)
         {
             int x = sample[0], next = sample[1], y = sample[2];

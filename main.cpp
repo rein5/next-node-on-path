@@ -19,7 +19,7 @@ int main()
     int i = 2, j = 5;
     int m = rmq.rangeMin(i, j);
 
-    std::cout << "Minimum in range [" << i << ", " << j << "]: " << m << std::endl;
+    std::cout << "Minimum over range [" << i << ", " << j << "]: " << m << std::endl;
 
 
 
