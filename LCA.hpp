@@ -4,7 +4,7 @@
 #include <vector>
 
 /**
- * Class to perform Lower Common Ancestor (LCA) queries on a tree in O(1) time, after
+ * Class to perform Lowest Common Ancestor (LCA) queries on a tree in O(1) time, after
  * O(n) space and time preprocessing.
  * The LCA problem is solved by reduction to a simplified "+/-1 RMQ" problem
  * over the depth Euler Tour of the tree.
