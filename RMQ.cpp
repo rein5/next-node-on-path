@@ -1,5 +1,6 @@
 #include "RMQ.hpp"
 #include <stack>
+#include <stdexcept>
 
 RMQ::RMQ(const std::vector<int> &seq) : LCA()
 {

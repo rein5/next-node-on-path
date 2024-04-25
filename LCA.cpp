@@ -1,4 +1,6 @@
 #include "LCA.hpp"
+#include <stdexcept>
+#include <cmath>
 
 LCA::LCA(const std::vector<int> &nodeVals,
          const std::vector<int> &parent,
