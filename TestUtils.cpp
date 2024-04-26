@@ -3,14 +3,29 @@
 #include "LCA.hpp"
 #include "NextNodeOnPath.hpp"
 #include <iostream>
+#include <fstream>
+#include <ctime>
 
 #define MAX_RMQ_TEST_SEQ_LENGTH 500
 #define MAX_NNOP_TEST_TREE_SIZE 500
+
+#define EXPORT_TO_CSV false
 
 void testRMQ()
 {
     std::cout << "+++ Testing the RMQ data structure against random sequences of length up to " << MAX_RMQ_TEST_SEQ_LENGTH << " +++\n";
     srand(time(0));
+
+    // File handling for CSV export
+    std::ofstream preprocessFile, queryFile;
+    if (EXPORT_TO_CSV) 
+    {
+        preprocessFile.open("RMQ_preprocess_times.csv");
+        queryFile.open("RMQ_query_times.csv");
+        preprocessFile << "SequenceLength,Time\n";
+        queryFile << "SequenceLength,Time\n";
+    }
+
     std::vector<int> seq;
     int totalCorrect = 0, total = 0;
     for (int sequenceLength = 1; sequenceLength <= MAX_RMQ_TEST_SEQ_LENGTH; sequenceLength++)
@@ -26,10 +41,19 @@ void testRMQ()
         }
 
         // preprocess sequence for RMQ queries
+        clock_t startPreprocess = clock();
         RMQ rmq(seq);
+        clock_t endPreprocess = clock();
+        double preprocessTime = 1000000.0 * (double)(endPreprocess - startPreprocess) / (double)CLOCKS_PER_SEC; // microseconds
+
+        if (EXPORT_TO_CSV) {
+            preprocessFile << sequenceLength << "," << preprocessTime << "\n";
+        }
 
         // test RMQ queries on current sequence
         int correct = 0, wrong = 0;
+        double totalQueryTime = 0;
+        int queryCount = 0;
         for (int i = 0; i < seq.size(); i++)
         {
             for (int j = 0; j < seq.size(); j++)
@@ -51,7 +75,13 @@ void testRMQ()
                 for (int q = k + 1; q <= l; q++)
                     m = std::min(m, seq[q]);
 
+                clock_t startQuery = clock();
                 int res = rmq.rangeMin(i, j);
+                clock_t endQuery = clock();
+                double queryTime = ((double)(endQuery - startQuery) / (double)CLOCKS_PER_SEC) * 1000000; // microseconds
+                totalQueryTime += queryTime;
+                queryCount++;
+
                 if (m == res)
                 {
                     correct++;
@@ -63,8 +93,18 @@ void testRMQ()
             }
         }
 
+        double averageQueryTime = totalQueryTime / queryCount;
+        if (EXPORT_TO_CSV) {
+            queryFile << sequenceLength << "," << averageQueryTime << "\n";
+        }
+
         total += correct + wrong;
         totalCorrect += correct;
+    }
+
+    if (EXPORT_TO_CSV) {
+        preprocessFile.close();
+        queryFile.close();
     }
 
     std::cout << "\n\t******* Total correct queries: " << totalCorrect << "/" << total << "\n\n";
@@ -108,6 +148,17 @@ void testNextNodeOnPath()
 {
     std::cout << "+++ Testing the NextNodeOnPath data structure against random n-ary trees of size up to " << MAX_NNOP_TEST_TREE_SIZE << " +++\n";
     srand(time(0));
+
+    // File handling for CSV export
+    std::ofstream preprocessFile, queryFile;
+    if (EXPORT_TO_CSV) 
+    {
+        preprocessFile.open("NNOP_preprocess_times.csv");
+        queryFile.open("NNOP_query_times.csv");
+        preprocessFile << "TreeSize,Time\n";
+        queryFile << "TreeSize,Time\n";
+    }
+
     int totalCorrect = 0, total = 0;
     std::vector<int> nodeVals, parent;
     std::vector<std::vector<int>> children;
@@ -143,15 +194,29 @@ void testNextNodeOnPath()
         }
 
         // preprocess tree for next-node-on-path queries
+        clock_t startPreprocess = clock();
         NextNodeOnPath nextNodeOnPath(nodeVals, parent, children, root);
+        clock_t endPreprocess = clock();
+        double preprocessTime = 1000000.0 * (double)(endPreprocess - startPreprocess) / (double)CLOCKS_PER_SEC; // microseconds
+
+        if (EXPORT_TO_CSV) {
+            preprocessFile << treeSize << "," << preprocessTime << "\n";
+        }
 
         // test queries
         int correct = 0, wrong = 0;
+        double totalQueryTime = 0;
+        int queryCount = 0;
         for (std::vector<int> &sample : testSamples)
         {
             int x = sample[0], next = sample[1], y = sample[2];
 
+            clock_t startQuery = clock();
             int computedNext = nextNodeOnPath.query(x, y);
+            clock_t endQuery = clock();
+            double queryTime = ((double)(endQuery - startQuery) / (double)CLOCKS_PER_SEC) * 1000000; // microseconds
+            totalQueryTime += queryTime;
+            queryCount++;
 
             if (computedNext == next)
             {
@@ -163,8 +228,18 @@ void testNextNodeOnPath()
             }
         }
 
+        double averageQueryTime = totalQueryTime / queryCount;
+        if (EXPORT_TO_CSV) {
+            queryFile << treeSize << "," << averageQueryTime << "\n";
+        }
+
         total += correct + wrong;
         totalCorrect += correct;
+    }
+
+    if (EXPORT_TO_CSV) {
+        preprocessFile.close();
+        queryFile.close();
     }
 
     std::cout << "\n\t******* Total correct queries: " << totalCorrect << "/" << total << "\n\n";
